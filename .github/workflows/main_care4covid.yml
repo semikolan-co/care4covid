@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'care4covid'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_5b80cb03576249128178c221fde00a05 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_84efbd96316a4c45b1122f755c983517 }}
