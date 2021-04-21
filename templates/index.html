@@ -1,0 +1,96 @@
+{% extends "layout.html" %} {% block body %}
+<div class="row">
+    <div class="col-md-3 px-2 stretch-card grid-margin">
+        <div class="card bg-gradient-danger card-img-holder text-white">
+            <div class="card-body p-4">
+                <img src="{{ url_for('static', filename='assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                <h4 class="font-weight-normal mb-3">Total Cases<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-3">{{data.total}}</h2>
+                <h6 class="card-text">Increased by 60%</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 px-2 stretch-card grid-margin">
+        <div class="card bg-gradient-success card-img-holder text-white">
+            <div class="card-body p-4">
+                <img src="{{ url_for('static', filename='assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                <h4 class="font-weight-normal mb-3">Recovered<i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-3">{{data.discharged}}</h2>
+                <h6 class="card-text">Increased by 60%</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 px-2 stretch-card grid-margin">
+        <div class="card bg-gradient-info card-img-holder text-white">
+            <div class="card-body p-4">
+                <img src="{{ url_for('static', filename='assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                <h4 class="font-weight-normal mb-3">Active Cases<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-3">{{data.total - (data.discharged - data.deaths)}}</h2>
+                <h6 class="card-text">Decreased by 10%</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 px-2 stretch-card grid-margin">
+        <div class="card bg-gradient-dark card-img-holder text-white">
+            <div class="card-body p-4">
+                <img src="{{ url_for('static', filename='assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
+                <h4 class="font-weight-normal mb-3">Deaths<i class="mdi mdi-diamond mdi-24px float-right"></i>
+                </h4>
+                <h2 class="mb-3">{{data.deaths}}</h2>
+                <h6 class="card-text">Increased by 5%</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-0">
+            <div class="card-body p-4">
+                <!-- <h4 class="card-title">Line chart</h4> -->
+                <canvas id="lineChart" style="min-height:500"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-0">
+            <div class="card-body p-3">
+                <!-- <h4 class="card-title">Line chart</h4> -->
+                <canvas id="pieChart" style="min-height: 500;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-0">
+            <div class="card-body p-4">
+
+                <table id="example" class="table datatable table-responsive-md table-hover" data-id-field="code" data-sort-name="value1" data-sort-order="desc" data-pagination="false" data-show-pagination-switch="false">
+                    <thead>
+                        <tr>
+                            <th data-field="code" class="text-dark" data-sortable="true">State</th>
+                            <th data-field="code" class="text-danger" data-sortable="true">Cases</th>
+                            <th data-field="code" class="text-success" data-sortable="true">Recovered</th>
+                            <th data-field="code" class="text-info" data-sortable="true">Active</th>
+                            <th data-field="code" class="text-secondary" data-sortable="true">Deaths</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for region in regional %}
+
+                        <tr>
+                            <td class="text-dark">{{region.loc}}</td>
+                            <td class="text-danger">{{region.totalConfirmed}}</td>
+                            <td class="text-success">{{region.discharged}}</td>
+                            <td class="text-info">{{region.totalConfirmed - (region.discharged+region.deaths)}}</td>
+                            <td class="text-secondary">{{region.deaths}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
