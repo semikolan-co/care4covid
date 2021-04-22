@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js">
     </script> -->
+    <script src="https://kit.fontawesome.com/c5fe5e7547.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -33,7 +34,7 @@
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="navbar-brand brand-logo font-weight-bold" href="index.html">Care4Covid</a>
-                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ url_for('static', filename='assets/images/logo-mini.svg') }}" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini font-weight-bold" href="index.html">Care4Covid</a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -76,7 +77,7 @@
                             <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <i class="mdi mdi-email-outline"></i>
                             <span class="count-symbol bg-warning"></span>
@@ -163,15 +164,15 @@
                             <div class="dropdown-divider"></div>
                             <h6 class="p-3 mb-0 text-center">See all notifications</h6>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-power"></i>
+                        <a class="nav-link" href="https://github.com/very-good-team/care4covid">
+                            <i class="mdi mdi-github-circle"></i>
                         </a>
                     </li>
                     <li class="nav-item nav-settings d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-format-line-spacing"></i>
+                        <a class="nav-link" target="_blank" href="https://www.pmcares.gov.in/en/web/contribution/donate_india">
+                            <i class="fa fa-hand-holding-heart"></i>
                         </a>
                     </li>
                 </ul>
@@ -198,43 +199,50 @@
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <span class="menu-title">Hospital Info</span>
                             <i class="menu-arrow"></i>
-                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                            <i class="mdi mdi-hospital-building menu-icon"></i>
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="#">Madhya Pradesh</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="#">Typography</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="#">Typography</a></li> -->
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#beds-availability" aria-expanded="false" aria-controls="ui-basic">
+                            <span class="menu-title">Beds Availability</span>
+                            <i class="menu-arrow"></i>
+                            <i class="fa fa-bed menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="beds-availability">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="#">Madhya Pradesh</a></li>
+                                <!-- <li class="nav-item"> <a class="nav-link" href="#">Typography</a></li> -->
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span class="menu-title">Beds Availability</span>
-                            <i class="mdi mdi-contacts menu-icon"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
                             <span class="menu-title">Vaccination Info</span>
-                            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                            <i class="mdi mdi-needle menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span class="menu-title">District Details</span>
-                            <i class="mdi mdi-chart-bar menu-icon"></i>
+                            <i class="mdi mdi-google-maps menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span class="menu-title">State Helplines</span>
-                            <i class="mdi mdi-table-large menu-icon"></i>
+                            <i class="mdi mdi-information-outline menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <span class="menu-title">Sources</span>
-                            <i class="mdi mdi-table-large menu-icon"></i>
+                            <i class="mdi mdi-help menu-icon"></i>
                         </a>
                     </li>
 
@@ -250,8 +258,8 @@
                 <!-- partial:partials/_footer.html -->
                 <footer class="footer">
                     <div class="container-fluid clearfix">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates </a> from Bootstrapdash.com</span>
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © care4covid 2020</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Designed with &hearts; by <a href="#" >SemiKolan </a></span>
                     </div>
                 </footer>
                 <!-- partial -->
