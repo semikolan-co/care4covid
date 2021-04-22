@@ -76,7 +76,14 @@ $(function() {
     var options = {
         // responsive: true,
         // maintainAspectRatio: 1,
-
+        tooltips: {
+            mode: "index",
+            intersect: false,
+        },
+        hover: {
+            mode: "nearest",
+            intersect: true,
+        },
         scales: {
             yAxes: [{
                 ticks: {
@@ -96,7 +103,7 @@ $(function() {
         },
         legend: {
             // display: 1,
-            display: !(android),
+            display: !android,
         },
         elements: {
             point: {
