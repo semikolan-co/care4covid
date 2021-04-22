@@ -1,0 +1,30 @@
+{% extends "layout.html" %} {% block body %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-2">
+            <div class="card-body p-3">
+
+                <table id="example" class="table datatable table-responsive-md table-hover" data-id-field="code" data-sort-name="value1" data-sort-order="desc" data-pagination="false" data-show-pagination-switch="false">
+                    <thead>
+                        <tr>
+                            <th data-field="code" class="" data-sortable="true">State/UT</th>
+                            <th data-field="code" class="text-info" data-sortable="true">Helpline No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for state in data %}
+
+                        <tr>
+                            <td class="">{{state[0]}}</td>
+                            <td class=""><a href="tel:{{state[1]}}"> {{state[1]}} </a> {% if(state[2]) %}
+                                <br> <a href="tel:{{state[2]}}"> {{state[2]}} </a> {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
