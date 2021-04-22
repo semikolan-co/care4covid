@@ -1,2 +1,0 @@
-Flask==0.10.1
-Flask-Stormpath==0.0.1
