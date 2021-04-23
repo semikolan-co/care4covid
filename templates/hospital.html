@@ -1,0 +1,36 @@
+{% extends "layout.html" %} {% block body %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-2">
+            <div class="card-body p-3">
+
+                <table id="example" class="table datatable table-responsive-md table-hover wrap" data-id-field="code" data-sort-name="value1" data-sort-order="desc" data-pagination="false" data-show-pagination-switch="false">
+                    <thead>
+                        <tr>
+                            <th data-field="code" class="" data-sortable="true">District</th>
+                            <th data-field="code" class="" data-sortable="true">Hospital Name</th>
+                            <th data-field="code" class="" data-sortable="true">Type</th>
+                            <th data-field="code" class="" data-sortable="true">Contact 1</th>
+                            <th data-field="code" class="" data-sortable="true">Contact 2</th>
+                            <th data-field="code" class="" data-sortable="true">Contact 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hospital in data %}
+
+                        <tr>
+                            <td class="">{{hospital['district']}}</td>
+                            <td class="">{{hospital['name']}}</td>
+                            <td class="">{{hospital['type']}}</td>
+                            <td class="">{{hospital['contact1'][0]}} <br><a href="tel:{{hospital['contact1'][1]}}"> {{hospital['contact1'][1]}} </a></td>
+                            <td class="">{{hospital['contact2'][0]}} <br><a href="tel:{{hospital['contact2'][1]}}"> {{hospital['contact2'][1]}} </a></td>
+                            <td class="">{{hospital['contact3'][0]}} <br><a href="tel:{{hospital['contact3'][1]}}"> {{hospital['contact3'][1]}} </a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

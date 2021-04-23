@@ -23,6 +23,16 @@ def helpline():
         data = json.load(f)['data']
     return render_template('helpline.html', data=data)
 
+@app.route('/hospital/<state>')
+def hospital(state):
+    try:
+        with open(f'mp.json') as f:
+            data = json.load(f)
+    except:
+        return f"404 | State: {state} not found"
+    else:
+        return render_template('hospital.html', data=data)
+
 
 if __name__ == '__main__':
     app.run()
