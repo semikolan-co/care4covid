@@ -1,0 +1,85 @@
+{% extends "layout.html" %} {% block body %}
+<div class="row nmt-3 mb-2">
+    <form action="" method="get">
+        <select name="state" id="sel" class="form-control">
+<option value="Andhra Pradesh">Andhra Pradesh</option>
+<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+<option value="Assam">Assam</option>
+<option value="Bihar">Bihar</option>
+<option value="Chandigarh">Chandigarh</option>
+<option value="Chhattisgarh">Chhattisgarh</option>
+<option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+<option value="Daman and Diu">Daman and Diu</option>
+<option value="Delhi">Delhi</option>
+<option value="Lakshadweep">Lakshadweep</option>
+<option value="Puducherry">Puducherry</option>
+<option value="Goa">Goa</option>
+<option value="Gujarat">Gujarat</option>
+<option value="Haryana">Haryana</option>
+<option value="Himachal Pradesh">Himachal Pradesh</option>
+<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+<option value="Jharkhand">Jharkhand</option>
+<option value="Karnataka">Karnataka</option>
+<option value="Kerala">Kerala</option>
+<option value="Madhya Pradesh">Madhya Pradesh</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Manipur">Manipur</option>
+<option value="Meghalaya">Meghalaya</option>
+<option value="Mizoram">Mizoram</option>
+<option value="Nagaland">Nagaland</option>
+<option value="Odisha">Odisha</option>
+<option value="Punjab">Punjab</option>
+<option value="Rajasthan">Rajasthan</option>
+<option value="Sikkim">Sikkim</option>
+<option value="Tamil Nadu">Tamil Nadu</option>
+<option value="Telangana">Telangana</option>
+<option value="Tripura">Tripura</option>
+<option value="Uttar Pradesh">Uttar Pradesh</option>
+<option value="Uttarakhand">Uttarakhand</option>
+<option value="West Bengal">West Bengal</option>
+</select>
+    </form>
+</div>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-2">
+            <div class="card-body p-3">
+
+                <table id="example" class="table datatable table-responsive-md table-hover wrap" data-id-field="code" data-sort-name="value1" data-sort-order="desc" data-pagination="false" data-show-pagination-switch="false">
+                    <thead>
+                        <tr>
+                            <th data-field="code" class="text-dark" data-sortable="true">Sno.</th>
+                            <th data-field="code" class="text-dark" data-sortable="true">District</th>
+                            <th data-field="code" class="text-danger" data-sortable="true">Cases</th>
+                            <th data-field="code" class="text-success" data-sortable="true">Recovered</th>
+                            <th data-field="code" class="text-info" data-sortable="true">Active</th>
+                            <th data-field="code" class="text-secondary" data-sortable="true">Deaths</th>
+                            <!-- <th></th> -->
+                            <!-- <th data-field="code" class="text-secondary" data-sortable="true">Iam colum</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for district in data %} {% set region = data[district] %}
+                        <tr>
+                            <td class="text-dark">#</td>
+                            <td class="text-dark"> {{district}}</td>
+                            <td class="text-danger"> {{region.confirmed}}</td>
+                            <td class="text-success"> {{region.recovered}}</td>
+                            <td class="text-info"> {{region.active}}</td>
+                            <td class="text-secondary"> {{region.deceased}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<meta id="my-data" data-name="{{state}}" data-other="">
+<script>
+    var state = $('#my-data').data('name');
+    console.log(state)
+    $('#sel').val(state);
+</script>
+{% endblock %}
