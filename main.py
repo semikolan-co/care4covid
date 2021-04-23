@@ -16,6 +16,18 @@ def index():
     data = r.json()['data']
     return render_template('index.html', data=data['summary'], regional = data['regional'])
 
+# Website
+@app.route('/state/<state>')
+def state(state):
+    r = requests.get('https://api.covid19india.org/state_district_wise.json')
+    try:
+        data = r.json()[state]
+    except:
+        return f"404 | State: {state} not found"
+    else:
+        return render_template('state.html', data=data['districtData'],state=state)
+        # return "Data Getched Successfully"
+
 
 @app.route('/helpline')
 def helpline():
