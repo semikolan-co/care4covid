@@ -1,5 +1,5 @@
 {% extends "layout.html" %} {% block body %}
-<div class="row nmt-3 mb-2">
+<div class="row mt-n4 mb-2">
     <form action="" method="get">
         <select name="state" id="sel" class="form-control">
 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -9,8 +9,7 @@
 <option value="Bihar">Bihar</option>
 <option value="Chandigarh">Chandigarh</option>
 <option value="Chhattisgarh">Chhattisgarh</option>
-<option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-<option value="Daman and Diu">Daman and Diu</option>
+<option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
 <option value="Delhi">Delhi</option>
 <option value="Lakshadweep">Lakshadweep</option>
 <option value="Puducherry">Puducherry</option>
@@ -81,5 +80,8 @@
     var state = $('#my-data').data('name');
     console.log(state)
     $('#sel').val(state);
+    $("#sel").change(function() {
+        window.location.replace("/state/" + $('#sel').val())
+    });
 </script>
 {% endblock %}
