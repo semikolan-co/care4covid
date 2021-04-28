@@ -1,0 +1,49 @@
+{% extends "layout.html" %} {% block body %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card p-0">
+        <div class="card p-2">
+            <div class="card-body p-3">
+
+                <table id="example" class="table datatable table-responsive-md table-hover wrap" cell-spacing="0" data-id-field="code" data-sort-name="value1" data-sort-order="desc" data-pagination="false" data-show-pagination-switch="false">
+                    <thead>
+                        <tr>
+                            <th data-field="code" class="" data-sortable="true">Name</th>
+                            <th data-field="code" class="" data-sortable="true"><i class="fa fa-map-marker"></i></th>
+                            <th data-field="code" class="" data-sortable="true">Type</th>
+                            <th data-field="code" class="" data-sortable="true">Total</th>
+                            <th data-field="code" class="" data-sortable="true">Available</th>
+                            <th data-field="code" class="" data-sortable="true">Isolation</th>
+                            <th data-field="code" class="" data-sortable="true">Oxygen</th>
+                            <th data-field="code" class="" data-sortable="true">ICU/HDU</th>
+                            <th data-field="code" class="" data-sortable="true">Contact1</th>
+                            <th data-field="code" class="" data-sortable="true">Contact2</th>
+                            <th data-field="code" class="" data-sortable="true">Contact3</th>
+
+                            <th data-field="code" class="" data-sortable="true">Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hospital in data %}
+
+                        <tr>
+                            <td class="" style="">{{hospital['hospitalName'].split('/')[0]}}<br><br>{{hospital['hospitalName'].split('/')[1]}}</td>
+                            <td class=" "><a href="{{hospital[ 'Address']}} "><i class="fa fa-map-marker "></i></a> </td>
+                            <td class=" ">{{hospital['hospitalType']}}</td>
+                            <td class=" ">{{hospital['bedStatus'].split('/')[0]}}</td>
+                            <td class=" ">{{hospital['bedStatus'].split('/')[1]}}</td>
+                            <td class=" ">-</td>
+                            <td class=" ">-</td>
+                            <td class=" ">-</td>
+                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
+                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
+                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
+                            <td class=" ">{{hospital['lastUpdated']}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

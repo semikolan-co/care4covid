@@ -38,12 +38,22 @@ def helpline():
 @app.route('/hospital/<state>')
 def hospital(state):
     try:
-        with open(f'mp.json') as f:
+        with open(f'{state}.json') as f:
             data = json.load(f)
     except:
         return f"404 | State: {state} not found"
     else:
         return render_template('hospital.html', data=data)
+
+@app.route('/beds/<state>')
+def beds(state):
+    r = requests.get(f'https://webscrapercovid.lordblackwood.repl.co/{state}')
+    try:
+        data = r.json()['data']
+    except:
+        return f"404 | State: {state} not found"
+    else:
+        return render_template('beds.html', data=data)
 
 
 if __name__ == '__main__':
