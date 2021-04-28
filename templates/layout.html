@@ -236,7 +236,7 @@
                         </a>
                         <div class="collapse" id="beds-availability">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="#">Madhya Pradesh</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="/beds/mp">Madhya Pradesh</a></li>
                                 <!-- <li class="nav-item"> <a class="nav-link" href="#">Typography</a></li> -->
                             </ul>
                         </div>
@@ -310,19 +310,10 @@
         $(document).ready(function() {
             $('#example').DataTable({
                 autoWidth: false,
-                // columns: [{
-                //     width: '50px'
-                // }, {
-                //     width: '50px'
-                // }, {
-                //     width: '50px'
-                // }, {
-                //     width: '50px'
-                // }, {
-                //     width: '50px'
-                // }, {
-                //     width: '50px'
-                // }],
+                columnDefs: [{
+                    // "className": "dt-center",
+                    "targets": "_all"
+                }],
                 paging: false,
                 responsive: true,
                 scrollX: true,
