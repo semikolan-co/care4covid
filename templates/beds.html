@@ -26,17 +26,18 @@
                         {% for hospital in data %}
 
                         <tr>
-                            <td class="" style="">{{hospital['hospitalName'].split('/')[0]}}<br><br>{{hospital['hospitalName'].split('/')[1]}}</td>
+                            <td class="" style="">{{hospital['hospitalName'].split('/')[0]}} {% if hospital['hospitalName'].split('/')[1] != hospital['hospitalName'].split('/')[0] %}
+                                <br><br>{{hospital['hospitalName'].split('/')[1]}} {% endif %}</td>
                             <td class=" "><a href="{{hospital[ 'Address']}} "><i class="fa fa-map-marker "></i></a> </td>
                             <td class=" ">{{hospital['hospitalType']}}</td>
                             <td class=" ">{{hospital['bedStatus'].split('/')[0]}}</td>
                             <td class=" ">{{hospital['bedStatus'].split('/')[1]}}</td>
-                            <td class=" ">-</td>
-                            <td class=" ">-</td>
-                            <td class=" ">-</td>
-                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
-                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
-                            <td class=" ">Coming Soon<br><a href="tel:1234567890 ">1234567890</a></td>
+                            <td class=" ">{{hospital['isolation']}}</td>
+                            <td class=" ">{{hospital['oxygen']}}</td>
+                            <td class=" ">{{hospital['reserved']}}</td>
+                            <td class=" ">{{hospital['contact1'].split(':')[0]}}<br><a href="tel:{{hospital['contact1'].split(':')[1]}}">{{hospital['contact1'].split(':')[1]}}</a></td>
+                            <td class=" ">{{hospital['contact2'].split(':')[0]}}<br><a href="tel:{{hospital['contact2'].split(':')[1]}}">{{hospital['contact2'].split(':')[1]}}</a></td>
+                            <td class=" ">{{hospital['contact3'].split(':')[0]}}<br><a href="tel:{{hospital['contact3'].split(':')[1]}}">{{hospital['contact3'].split(':')[1]}}</a></td>
                             <td class=" ">{{hospital['lastUpdated']}}</td>
                         </tr>
                         {% endfor %}
