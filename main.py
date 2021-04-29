@@ -42,8 +42,8 @@ def hospital(state):
             data = json.load(f)
     except:
         return f"404 | State: {state} not found"
-    else:
-        return render_template('hospital.html', data=data)
+    
+    return render_template('hospital.html', data=data)
 
 @app.route('/beds/<state>')
 def beds(state):
