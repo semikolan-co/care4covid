@@ -9,24 +9,39 @@ $(function() {
     var android = (window.innerWidth < 500) ? 1 : 0;
 
     var counterline = 0;
-    $.getJSON(
-        "https://api.rootnet.in/covid19-in/stats/history",
-        function(jsondata) {
-            jsondata.data.forEach((day, index, array) => {
-                labelLine.push(day.day);
-                total.push(day.summary.total);
-                recovered.push(day.summary.discharged);
-                active.push(
-                    day.summary.total - (day.summary.discharged + day.summary.deaths)
-                );
-                death.push(day.summary.deaths);
-                counterline++;
-                if (counterline == array.length) {
-                    callbackline();
-                }
-            });
-        }
-    );
+    // $.getJSON(
+    //     "https://api.rootnet.in/covid19-in/stats/history",
+    //     function(jsondata) {
+    //         jsondata.data.forEach((day, index, array) => {
+    //             labelLine.push(day.day);
+    //             total.push(day.summary.total);
+    //             recovered.push(day.summary.discharged);
+    //             active.push(
+    //                 day.summary.total - (day.summary.discharged + day.summary.deaths)
+    //             );
+    //             death.push(day.summary.deaths);
+    //             counterline++;
+    //             if (counterline == array.length) {
+    //                 callbackline();
+    //             }
+    //         });
+    //     }
+    // );
+    $.getJSON("https://api.covid19india.org/data.json", function(jsondata) {
+        jsondata.cases_time_series.forEach((day, index, array) => {
+            labelLine.push(day.date);
+            total.push(day.dailyconfirmed);
+            recovered.push(day.dailyrecovered);
+            active.push(
+                day.dailyconfirmed - (Number(day.dailyrecovered) + Number(day.dailydeceased))
+            );
+            death.push(day.dailydeceased);
+            counterline++;
+            if (counterline == array.length) {
+                callbackline();
+            }
+        });
+    });
 
 
 
@@ -38,7 +53,7 @@ $(function() {
         data: total,
         lineTension: 0,
         fill: 1,
-        backgroundColor: "#fe612c20",
+        backgroundColor: "#fe612c60",
         borderColor: "#fe612c",
     };
 
@@ -47,7 +62,7 @@ $(function() {
         data: recovered,
         lineTension: 0,
         fill: 1,
-        backgroundColor: "#66f10020",
+        backgroundColor: "#66f10060",
         borderColor: "#66f100",
     };
     var dataActive = {
@@ -55,7 +70,7 @@ $(function() {
         data: active,
         lineTension: 0,
         fill: true,
-        backgroundColor: "#00dbff20",
+        backgroundColor: "#00dbff60",
         borderColor: "#00dbff",
     };
     var dataDeath = {
@@ -66,9 +81,21 @@ $(function() {
         borderColor: "#616161",
     };
 
-    var lineData = {
+    var lineDataTotal = {
         labels: labelLine,
-        datasets: [dataDeath, dataActive, dataRecovered, dataTotal],
+        datasets: [dataTotal],
+    };
+    var lineDataRecovered = {
+        labels: labelLine,
+        datasets: [dataRecovered],
+    };
+    var lineDataActive = {
+        labels: labelLine,
+        datasets: [dataActive],
+    };
+    var lineDataDeceased = {
+        labels: labelLine,
+        datasets: [dataDeath],
     };
 
 
@@ -89,7 +116,20 @@ $(function() {
                 ticks: {
                     beginAtZero: false,
                     display: !android,
+                    callback: function(label, index, labels) {
+                        if (label > 99999) {
+                            return label / 1000000 + "M";
+                        } else if (label > 99) {
+
+                            return label / 1000 + "K";
+                        }
+                        return label;
+                    },
                 },
+                // scaleLabel: {
+                //     display: true,
+                //     labelString: "1k = 1000",
+                // },
             }, ],
             xAxes: [{
                 gridLines: {
@@ -113,11 +153,37 @@ $(function() {
     };
 
     function callbackline() {
-        if ($("#lineChart").length) {
-            var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-            var lineChart = new Chart(lineChartCanvas, {
+        if ($("#lineChartTotal").length) {
+            var lineChartCanvasTotal = $("#lineChartTotal").get(0).getContext("2d");
+            var lineChartTotal = new Chart(lineChartCanvasTotal, {
                 type: "line",
-                data: lineData,
+                data: lineDataTotal,
+                options: options,
+            });
+        }
+        if ($("#lineChartRecovered").length) {
+            var lineChartCanvasRecovered = $("#lineChartRecovered").get(0).getContext("2d");
+            var lineChartRecovered = new Chart(lineChartCanvasRecovered, {
+                type: "line",
+                data: lineDataRecovered,
+                options: options,
+            });
+        }
+
+        if ($("#lineChartActive").length) {
+            var lineChartCanvasActive = $("#lineChartActive").get(0).getContext("2d");
+            var lineChartActive = new Chart(lineChartCanvasActive, {
+                type: "line",
+                data: lineDataActive,
+                options: options,
+            });
+        }
+
+        if ($("#lineChartDeceased").length) {
+            var lineChartCanvasDeceased = $("#lineChartDeceased").get(0).getContext("2d");
+            var lineChartDeceased = new Chart(lineChartCanvasDeceased, {
+                type: "line",
+                data: lineDataDeceased,
                 options: options,
             });
         }
