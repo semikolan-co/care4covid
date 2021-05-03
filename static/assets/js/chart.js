@@ -117,9 +117,9 @@ $(function() {
                     beginAtZero: false,
                     display: !android,
                     callback: function(label, index, labels) {
-                        if (label > 99999) {
+                        if (label > 999999) {
                             return label / 1000000 + "M";
-                        } else if (label > 99) {
+                        } else if (label > 999) {
 
                             return label / 1000 + "K";
                         }
