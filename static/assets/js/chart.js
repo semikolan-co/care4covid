@@ -52,8 +52,8 @@ $(function() {
         label: "Total Cases",
         data: total,
         lineTension: 0,
-        fill: 1,
-        backgroundColor: "#fe612c60",
+        fill: true,
+        backgroundColor: "#fe612c50",
         borderColor: "#fe612c",
     };
 
@@ -61,8 +61,8 @@ $(function() {
         label: "Recovered Cases",
         data: recovered,
         lineTension: 0,
-        fill: 1,
-        backgroundColor: "#66f10060",
+        fill: true,
+        backgroundColor: "#66f10050",
         borderColor: "#66f100",
     };
     var dataActive = {
@@ -70,14 +70,14 @@ $(function() {
         data: active,
         lineTension: 0,
         fill: true,
-        backgroundColor: "#00dbff60",
+        backgroundColor: "#00dbff50",
         borderColor: "#00dbff",
     };
     var dataDeath = {
         label: "Deaths",
         data: death,
         lineTension: 0,
-        fill: false,
+        fill: true,
         borderColor: "#616161",
     };
 
@@ -142,8 +142,7 @@ $(function() {
             }, ],
         },
         legend: {
-            // display: 1,
-            display: !android,
+            display: 0,
         },
         elements: {
             point: {
