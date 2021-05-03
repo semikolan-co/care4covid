@@ -19,8 +19,8 @@ def index():
     a = requests.get('https://api.covid19india.org/data.json')
     today = a.json()['cases_time_series'][-1]
     yesterday = a.json()['cases_time_series'][-2]
-    today['active'] = int(today['dailyconfirmed'])-(int(today['dailydeceased']+ today['dailyrecovered']))
-    yesterday['active'] = int(yesterday['dailyconfirmed'])-(int(yesterday['dailydeceased']+ today['dailyrecovered']))
+    today['active'] = int(today['dailyconfirmed'])-(int(today['dailydeceased'])+ int(today['dailyrecovered']))
+    yesterday['active'] = int(yesterday['dailyconfirmed'])-(int(yesterday['dailydeceased'])+ int(today['dailyrecovered']))
     def calcIncrement(key):
      return int(((int(today[key]) - int(yesterday[key]))/int(yesterday[key]))*100)
 
@@ -30,8 +30,8 @@ def index():
     increment['active'] = calcIncrement('active')   
     increment['deceased'] = calcIncrement('dailydeceased')
     
-    # return increment
-    return render_template('index.html', data=data['summary'], increment=increment,regional = data['regional'])
+    # return {'val':yesterday['active']}
+    return render_template('index.html',today=today, data=data['summary'], increment=increment,regional = data['regional'])
 
 # Website
 @app.route('/state/<state>')

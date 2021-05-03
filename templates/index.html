@@ -2,11 +2,13 @@
 <div class="row">
     <div class="col-md-3 px-2 stretch-card grid-margin">
         <div class="card bg-gradient-danger card-img-holder text-white">
+
             <div class="card-body p-4">
                 <img src="{{ url_for('static', filename='assets/images/dashboard/circle.svg') }}" class="card-img-absolute" alt="circle-image" />
                 <h4 class="font-weight-normal mb-3">Total Cases<i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.total}}</h2>
+                <h4 class="mb-1">{{today.dailyconfirmed}}</h4>
                 <h6 class="card-text">
                     {% if (increment.active > 0) %}
                     <i class="fa fa-arrow-up"></i> Increased by {{increment.total|abs}}% {% else %}
@@ -22,6 +24,8 @@
                 <h4 class="font-weight-normal mb-3">Recovered<i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.discharged}}</h2>
+
+                <h4 class="mb-1">{{today.dailyrecovered}}</h4>
                 <h6 class="card-text">
 
                     {% if (increment.active > 0) %}
@@ -38,6 +42,7 @@
                 <h4 class="font-weight-normal mb-3">Active Cases<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.total - (data.discharged - data.deaths)}}</h2>
+                <h4 class="mb-1">{{today.active}}</h4>
                 <h6 class="card-text">
 
                     {% if (increment.active > 0) %}
@@ -54,6 +59,7 @@
                 <h4 class="font-weight-normal mb-3">Deaths<i class="mdi mdi-diamond mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.deaths}}</h2>
+                <h4 class="mb-1">{{today.dailydeceased}}</h4>
                 <h6 class="card-text">
 
                     {% if (increment.active > 0) %}
@@ -68,6 +74,7 @@
     <div class="col-lg-6 col-sm-12 stretch-card p-0">
         <div class="card p-0">
             <div class="card-body p-4">
+                <!-- <h4 class="text-danger">{{today.dailyconfirmed}} on {{today.date}}</h4> -->
                 <!-- <h4 class="card-title">Line chart</h4> -->
                 <canvas id="lineChartTotal" style="min-height:500"></canvas>
             </div>
