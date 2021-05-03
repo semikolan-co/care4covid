@@ -7,7 +7,11 @@
                 <h4 class="font-weight-normal mb-3">Total Cases<i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.total}}</h2>
-                <h6 class="card-text">Increased by 60%</h6>
+                <h6 class="card-text">
+                    {% if (increment.active > 0) %}
+                    <i class="fa fa-arrow-up"></i> Increased by {{increment.total|abs}}% {% else %}
+                    <i class="fa fa-arrow-down"></i> Decreased by {{increment.total|abs}}% {% endif %}
+                </h6>
             </div>
         </div>
     </div>
@@ -18,7 +22,12 @@
                 <h4 class="font-weight-normal mb-3">Recovered<i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.discharged}}</h2>
-                <h6 class="card-text">Increased by 60%</h6>
+                <h6 class="card-text">
+
+                    {% if (increment.active > 0) %}
+                    <i class="fa fa-arrow-up"></i> Increased by {{increment.active|abs}}% {% else %}
+                    <i class="fa fa-arrow-down"></i> Decreased by {{increment.active|abs}}% {% endif %}
+                </h6>
             </div>
         </div>
     </div>
@@ -29,7 +38,12 @@
                 <h4 class="font-weight-normal mb-3">Active Cases<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.total - (data.discharged - data.deaths)}}</h2>
-                <h6 class="card-text">Decreased by 10%</h6>
+                <h6 class="card-text">
+
+                    {% if (increment.active > 0) %}
+                    <i class="fa fa-arrow-up"></i> Increased by {{increment.recovered|abs}}% {% else %}
+                    <i class="fa fa-arrow-down"></i> Decreased by {{increment.recovered|abs}}% {% endif %}
+                </h6>
             </div>
         </div>
     </div>
@@ -40,7 +54,12 @@
                 <h4 class="font-weight-normal mb-3">Deaths<i class="mdi mdi-diamond mdi-24px float-right"></i>
                 </h4>
                 <h2 class="mb-3">{{data.deaths}}</h2>
-                <h6 class="card-text">Increased by 5%</h6>
+                <h6 class="card-text">
+
+                    {% if (increment.active > 0) %}
+                    <i class="fa fa-arrow-up"></i> Increased by {{increment.deceased|abs}}% {% else %}
+                    <i class="fa fa-arrow-down"></i> Decreased by {{increment.deceased|abs}}% {% endif %}
+                </h6>
             </div>
         </div>
     </div>
