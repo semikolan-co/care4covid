@@ -22,7 +22,7 @@ def index():
     today['active'] = int(today['dailyconfirmed'])-(int(today['dailydeceased'])+ int(today['dailyrecovered']))
     yesterday['active'] = int(yesterday['dailyconfirmed'])-(int(yesterday['dailydeceased'])+ int(today['dailyrecovered']))
     def calcIncrement(key):
-     return int(((int(today[key]) - int(yesterday[key]))/int(yesterday[key]))*100)
+     return "{:.2f}".format(((int(today[key]) - int(yesterday[key]))/int(yesterday[key]))*100)
 
     increment = {}
     increment['total'] = calcIncrement('dailyconfirmed')
@@ -30,7 +30,7 @@ def index():
     increment['active'] = calcIncrement('active')   
     increment['deceased'] = calcIncrement('dailydeceased')
     
-    # return {'val':yesterday['active']}
+    # return today
     return render_template('index.html',today=today, data=data['summary'], increment=increment,regional = data['regional'])
 
 # Website
@@ -61,7 +61,7 @@ def hospital(state):
         return f"404 | State: {state} not found"
     
     return render_template('hospital.html', data=data)
-
+    
 @app.route('/beds/<state>')
 def beds(state):
     r = requests.get(f'https://webscrapercovid.lordblackwood.repl.co/{state}')
@@ -71,6 +71,15 @@ def beds(state):
         return f"404 | State: {state} not found"
     else:
         return render_template('beds.html', data=data)
+
+@app.route('/sources')
+def sources():
+    
+    with open('sources.json') as f:
+        data = json.load(f)
+        sources = data["official"]
+        initiatives =data["initiatives"]
+    return render_template('sources.html',sources=sources,initiatives=initiatives)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,64 @@
+{% set title = "Sources" %} {% extends "layout.html" %} {% block body %}
+<div class="row">
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body p-4">
+                <h4 class="card-title">Sources we have used</h4>
+                </p>
+                <table class="table table-responsive-sm">
+
+                    <tbody>
+                        <tr>
+                            <td> Covid19India </td>
+                            <td> <a href="https://covid19india.org">https://covid19india.org</a> </td>
+                        </tr>
+                        <tr>
+                            <td> MP State Portal </td>
+                            <td> <a href="http://sarthak.nhmmp.gov.in/covid/facility-bed-occupancy-dashboard/">http://sarthak.nhmmp.gov.in/covid/facility-bed-occupancy-dashboard/</a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mt-n4 stretch-card">
+        <div class="card">
+            <div class="card-body p-4">
+                <h4 class="card-title">Other Helpful Initiatives</h4>
+                </p>
+                <table class="table table-responsive-sm">
+
+                    <tbody>
+                        {% for source in initiatives %}
+                        <tr>
+                            <td> {{source[0]}} </td>
+                            <td> <a href="{{source[1]}}">{{source[1]}}</a> </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 mt-n4 stretch-card">
+        <div class="card">
+            <div class="card-body p-4">
+                <h4 class="card-title">Trusted Official Sources</h4>
+                </p>
+                <table class="table table-responsive-sm">
+
+                    <tbody>
+                        {% for source in sources %}
+                        <tr>
+                            <td> {{source[0]}} </td>
+                            <td> <a href="{{source[1]}}">{{source[1]}}</a> </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
