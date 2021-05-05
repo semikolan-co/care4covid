@@ -52,6 +52,10 @@ def helpline():
         data = json.load(f)['data']
     return render_template('helpline.html', data=data)
 
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html')
+
 @app.route('/hospital/<state>')
 def hospital(state):
     try:

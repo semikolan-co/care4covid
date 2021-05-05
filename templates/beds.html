@@ -26,7 +26,7 @@
                         {% for hospital in data %}
 
                         <tr>
-                            <td class="" style="">{{hospital['hospitalName'].split('/')[0]}} {% if hospital['hospitalName'].split('/')[1] != hospital['hospitalName'].split('/')[0] %}
+                            <td class="">{{hospital['hospitalName'].split('/')[0]}} {% if hospital['hospitalName'].split('/')[1] != hospital['hospitalName'].split('/')[0] %}
                                 <br><br>{{hospital['hospitalName'].split('/')[1]}} {% endif %}</td>
                             <td class=" "><a href="{{hospital[ 'Address']}} "><i class="fa fa-map-marker "></i></a> </td>
                             <td class=" ">{{hospital['hospitalType']}}</td>
