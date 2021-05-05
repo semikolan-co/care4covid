@@ -1,56 +1,64 @@
+var lineChartTotal;
+var lineChartRecovered;
+var lineChartActive;
+var lineChartDeceased;
 $(function() {
     "use strict";
 
-    var total = [];
-    var active = [];
-    var recovered = [];
-    var labelLine = [];
-    var death = [];
-    var android = (window.innerWidth < 500) ? 1 : 0;
+    var cumulativetotal = [];
+    var cumulativeactive = [];
+    var cumulativerecovered = [];
+    var cumulativelabelLine = [];
+    var cumulativedeath = [];
+    var dailytotal = [];
+    var dailyactive = [];
+    var dailyrecovered = [];
+    var dailylabelLine = [];
+    var dailydeath = [];
+    var android = window.innerWidth < 500 ? 1 : 0;
 
     var counterline = 0;
-    // $.getJSON(
-    //     "https://api.rootnet.in/covid19-in/stats/history",
-    //     function(jsondata) {
-    //         jsondata.data.forEach((day, index, array) => {
-    //             labelLine.push(day.day);
-    //             total.push(day.summary.total);
-    //             recovered.push(day.summary.discharged);
-    //             active.push(
-    //                 day.summary.total - (day.summary.discharged + day.summary.deaths)
-    //             );
-    //             death.push(day.summary.deaths);
-    //             counterline++;
-    //             if (counterline == array.length) {
-    //                 callbackline();
-    //             }
-    //         });
-    //     }
-    // );
-    $.getJSON("https://api.covid19india.org/data.json", function(jsondata) {
-        jsondata.cases_time_series.forEach((day, index, array) => {
-            labelLine.push(day.date);
-            total.push(day.dailyconfirmed);
-            recovered.push(day.dailyrecovered);
-            active.push(
-                day.dailyconfirmed - (Number(day.dailyrecovered) + Number(day.dailydeceased))
-            );
-            death.push(day.dailydeceased);
-            counterline++;
-            if (counterline == array.length) {
-                callbackline();
-            }
+    $.getJSON(
+        "https://api.rootnet.in/covid19-in/stats/history",
+        function(jsondata) {
+            jsondata.data.forEach((day, index, array) => {
+                cumulativelabelLine.push(day.day);
+                cumulativetotal.push(day.summary.total);
+                cumulativerecovered.push(day.summary.discharged);
+                cumulativeactive.push(
+                    day.summary.total - (day.summary.discharged + day.summary.deaths)
+                );
+                cumulativedeath.push(day.summary.deaths);
+                counterline++;
+                if (counterline == array.length) {
+                    getDailyData();
+                }
+            });
+        }
+    );
+
+    function getDailyData(params) {
+        $.getJSON("https://api.covid19india.org/data.json", function(jsondata) {
+            jsondata.cases_time_series.forEach((day, index, array) => {
+                dailylabelLine.push(day.date);
+                dailytotal.push(day.dailyconfirmed);
+                dailyrecovered.push(day.dailyrecovered);
+                dailyactive.push(
+                    day.dailyconfirmed -
+                    (Number(day.dailyrecovered) + Number(day.dailydeceased))
+                );
+                dailydeath.push(day.dailydeceased);
+                counterline++;
+                if (counterline == array.length) {
+                    callbackline();
+                }
+            });
         });
-    });
-
-
-
-
-
+    }
 
     var dataTotal = {
         label: "Total Cases",
-        data: total,
+        data: cumulativetotal,
         lineTension: 0,
         fill: true,
         backgroundColor: "#fe612c50",
@@ -59,7 +67,7 @@ $(function() {
 
     var dataRecovered = {
         label: "Recovered Cases",
-        data: recovered,
+        data: cumulativerecovered,
         lineTension: 0,
         fill: true,
         backgroundColor: "#66f10050",
@@ -67,7 +75,7 @@ $(function() {
     };
     var dataActive = {
         label: "Active Cases",
-        data: active,
+        data: cumulativeactive,
         lineTension: 0,
         fill: true,
         backgroundColor: "#00dbff50",
@@ -75,30 +83,28 @@ $(function() {
     };
     var dataDeath = {
         label: "Deaths",
-        data: death,
+        data: cumulativedeath,
         lineTension: 0,
         fill: true,
         borderColor: "#616161",
     };
 
     var lineDataTotal = {
-        labels: labelLine,
+        labels: cumulativelabelLine,
         datasets: [dataTotal],
     };
     var lineDataRecovered = {
-        labels: labelLine,
+        labels: cumulativelabelLine,
         datasets: [dataRecovered],
     };
     var lineDataActive = {
-        labels: labelLine,
+        labels: cumulativelabelLine,
         datasets: [dataActive],
     };
     var lineDataDeceased = {
-        labels: labelLine,
+        labels: cumulativelabelLine,
         datasets: [dataDeath],
     };
-
-
 
     var options = {
         // responsive: true,
@@ -120,7 +126,6 @@ $(function() {
                         if (label > 999999) {
                             return label / 1000000 + "M";
                         } else if (label > 999) {
-
                             return label / 1000 + "K";
                         }
                         return label;
@@ -154,15 +159,17 @@ $(function() {
     function callbackline() {
         if ($("#lineChartTotal").length) {
             var lineChartCanvasTotal = $("#lineChartTotal").get(0).getContext("2d");
-            var lineChartTotal = new Chart(lineChartCanvasTotal, {
+            lineChartTotal = new Chart(lineChartCanvasTotal, {
                 type: "line",
                 data: lineDataTotal,
                 options: options,
             });
         }
         if ($("#lineChartRecovered").length) {
-            var lineChartCanvasRecovered = $("#lineChartRecovered").get(0).getContext("2d");
-            var lineChartRecovered = new Chart(lineChartCanvasRecovered, {
+            var lineChartCanvasRecovered = $("#lineChartRecovered")
+                .get(0)
+                .getContext("2d");
+            lineChartRecovered = new Chart(lineChartCanvasRecovered, {
                 type: "line",
                 data: lineDataRecovered,
                 options: options,
@@ -171,7 +178,7 @@ $(function() {
 
         if ($("#lineChartActive").length) {
             var lineChartCanvasActive = $("#lineChartActive").get(0).getContext("2d");
-            var lineChartActive = new Chart(lineChartCanvasActive, {
+            lineChartActive = new Chart(lineChartCanvasActive, {
                 type: "line",
                 data: lineDataActive,
                 options: options,
@@ -179,17 +186,16 @@ $(function() {
         }
 
         if ($("#lineChartDeceased").length) {
-            var lineChartCanvasDeceased = $("#lineChartDeceased").get(0).getContext("2d");
-            var lineChartDeceased = new Chart(lineChartCanvasDeceased, {
+            var lineChartCanvasDeceased = $("#lineChartDeceased")
+                .get(0)
+                .getContext("2d");
+            lineChartDeceased = new Chart(lineChartCanvasDeceased, {
                 type: "line",
                 data: lineDataDeceased,
                 options: options,
             });
         }
-
     }
-
-
 
     var labelpie = [];
     var datapie = [];
@@ -267,10 +273,42 @@ $(function() {
                     // maintainAspectRatio: true,
                     legend: {
                         position: "bottom",
-                        display: !(android)
+                        display: !android,
                     },
                 },
             });
         }
     }
+
+    $("#switch-id").change(function() {
+        if ($(this).is(":checked")) {
+            lineChartTotal.config.data.datasets[0].data = dailytotal;
+            lineChartTotal.config.data.labels = dailylabelLine;
+            lineChartTotal.update();
+            lineChartRecovered.config.data.datasets[0].data = dailyrecovered;
+            lineChartRecovered.config.data.labels = dailylabelLine;
+            lineChartRecovered.update();
+            lineChartActive.config.data.datasets[0].data = dailyactive;
+            lineChartActive.config.data.labels = dailylabelLine;
+            lineChartActive.update();
+            lineChartDeceased.config.data.datasets[0].data = dailydeath;
+            lineChartDeceased.config.data.labels = dailylabelLine;
+            lineChartDeceased.update();
+        } else {
+            lineChartTotal.config.data.datasets[0].data = cumulativetotal;
+            lineChartTotal.config.data.labels = cumulativelabelLine;
+            lineChartTotal.update();
+            lineChartRecovered.config.data.datasets[0].data = cumulativerecovered;
+            lineChartRecovered.config.data.labels = cumulativelabelLine;
+            lineChartRecovered.update();
+
+            lineChartActive.config.data.datasets[0].data = cumulativeactive;
+            lineChartActive.config.data.labels = cumulativelabelLine;
+            lineChartActive.update();
+
+            lineChartDeceased.config.data.datasets[0].data = cumulativedeath;
+            lineChartDeceased.config.data.labels = cumulativelabelLine;
+            lineChartDeceased.update();
+        }
+    });
 });
