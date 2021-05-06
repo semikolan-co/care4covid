@@ -5,17 +5,31 @@ import requests
 import json
 import datetime
 
-# print(data['summary'])
+
+def getUserData(route):
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip = request.remote_addr
+    with open("users.txt", "a") as f:
+        f.write(f"Page Visited: {route}\n")
+        f.write(f"User Agent: {request.headers.get('User-Agent')}\n")
+        f.write(f"Remote Addr: {ip}\n")
+        f.write(f"DateTime: {datetime.datetime.now()}\n")
+        f.write(f"\n\n\n")
+
 
 app = Flask(__name__)
 app.debug = True
 
 @app.errorhandler(404)
 def not_found(e):
-  return render_template("404.html")
+    getUserData("404 Page")
+    return render_template("404.html")
 # Website
 @app.route('/')
 def index():
+    getUserData("Index Page")
     r = requests.get('https://api.rootnet.in/covid19-in/stats/latest')
     data = r.json()['data']
     a = requests.get('https://api.covid19india.org/data.json')
@@ -38,6 +52,8 @@ def index():
 # Website
 @app.route('/state/<state>')
 def state(state):
+    getUserData(f"State - {state}")
+
     r = requests.get('https://api.covid19india.org/state_district_wise.json')
     try:
         data = r.json()[state]
@@ -50,16 +66,22 @@ def state(state):
 
 @app.route('/helpline')
 def helpline():
+    getUserData("Helpline")
+
     with open('helpline.json') as f:
         data = json.load(f)['data']
     return render_template('helpline.html', data=data)
 
 @app.route('/feedback')
 def feedback():
+    getUserData("Feedback")
+
     return render_template('feedback.html')
 
 @app.route('/feedback', methods=['GET', 'POST'])
 def addfeedback():
+    getUserData("Feedback POST")
+
     # handle the POST request
     if request.method == 'POST':
         name = request.form.get('name')
@@ -84,6 +106,8 @@ def addfeedback():
 
 @app.route('/hospital/<state>')
 def hospital(state):
+    getUserData(f"Hospital - {state}")
+
     try:
         with open(f'{state}.json') as f:
             data = json.load(f)
@@ -94,6 +118,8 @@ def hospital(state):
     
 @app.route('/beds/<state>')
 def beds(state):
+    getUserData(f"Beds - {state}")
+
     r = requests.get(f'https://webscrapercovid.lordblackwood.repl.co/{state}')
     try:
         data = r.json()['data']
@@ -104,6 +130,8 @@ def beds(state):
 
 @app.route('/sources')
 def sources():
+    getUserData("Sources")
+
     
     with open('sources.json') as f:
         data = json.load(f)
