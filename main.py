@@ -56,6 +56,28 @@ def helpline():
 def feedback():
     return render_template('feedback.html')
 
+@app.route('/feedback', methods=['GET', 'POST'])
+def addfeedback():
+    # handle the POST request
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        howknow = request.form.get('howknow')
+        howuseful = request.form.get('howuseful')
+        number = request.form.get('number')
+        feedback = request.form.get('feedback')
+       #...... and so on.. till last input
+        with open("feedback.txt", "a") as f:
+           f.write(f"Name: {name}\n")
+           f.write(f"Email: {email}\n")
+           f.write(f"Number: {number}\n")
+           f.write(f"How do you know website: {howknow}\n")
+           f.write(f"How can we make website useful: {howuseful}\n")
+           f.write(f"Feedback: {feedback}\n")
+           f.write(f"\n\n\n")
+           return redirect('/')
+
+
 @app.route('/hospital/<state>')
 def hospital(state):
     try:
