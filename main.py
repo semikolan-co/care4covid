@@ -3,6 +3,8 @@ from os import environ
 from flask import Flask, redirect, render_template, request, url_for
 import requests
 import json
+import datetime
+
 # print(data['summary'])
 
 app = Flask(__name__)
@@ -74,6 +76,8 @@ def addfeedback():
            f.write(f"How do you know website: {howknow}\n")
            f.write(f"How can we make website useful: {howuseful}\n")
            f.write(f"Feedback: {feedback}\n")
+           f.write(f"DateTime: {datetime.datetime.now()}\n")
+
            f.write(f"\n\n\n")
            return redirect('/')
 
