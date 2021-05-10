@@ -119,6 +119,7 @@ $(function() {
         },
         scales: {
             yAxes: [{
+                position: 'right',
                 ticks: {
                     beginAtZero: false,
                     display: !android,
